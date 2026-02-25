@@ -54,8 +54,18 @@
     <button class="nav-tab" onclick="showView('menu')">Menú</button>
     <button class="nav-tab" onclick="showView('compras')">🛒 Compras</button>
     <button class="nav-tab" onclick="showView('plan')">📅 Plan semana</button>
-    <button class="nav-tab" onclick="showView('historial')">Historial</button>
+    <button class="nav-tab admin-only" onclick="showView('historial')">Historial</button>
   </div>
+  <!-- ROLE SELECTION -->
+<div id="role-selection-overlay" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:9997;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px">
+  <div style="font-size:2.5rem">👋</div>
+  <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text);text-align:center">¿Con qué rol vas a usar la app?</div>
+  <div style="font-size:14px;color:var(--muted);text-align:center;max-width:320px">Elegí tu rol. El Admin puede editar tareas, recetas y ver el historial.</div>
+  <div style="display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px">
+    <button onclick="window._confirmRole('admin')" style="padding:16px;border-radius:12px;border:2px solid var(--gold);background:rgba(212,168,71,0.08);font-family:'Lato',sans-serif;font-size:15px;font-weight:700;color:var(--gold);cursor:pointer">👑 Admin — control total</button>
+    <button onclick="window._confirmRole('user')" style="padding:16px;border-radius:12px;border:2px solid var(--border);background:var(--surface);font-family:'Lato',sans-serif;font-size:15px;font-weight:700;color:var(--text);cursor:pointer">👤 Usuario — uso diario</button>
+  </div>
+</div>
 </nav>
 
 <main>
