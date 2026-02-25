@@ -89,7 +89,6 @@ function init() {
   const authTimeout = setTimeout(() => {
     document.getElementById('loading-overlay').style.display = 'none';
     document.getElementById('auth-overlay').style.display = 'flex';
-    document.getElementById('loading-msg').textContent = 'Conectando...';
   }, 5000);
 
   auth.onAuthStateChanged(async user => {
@@ -100,27 +99,34 @@ function init() {
       document.getElementById('loading-overlay').style.display = 'flex';
       document.getElementById('loading-msg').textContent = `Hola, ${user.displayName?.split(' ')[0] || 'bienvenida'} 👋`;
 
-      const brand = document.getElementById('nav-brand');
-      if (brand) brand.innerHTML = `🏠 Casa &nbsp;<span style="font-size:11px;color:var(--muted);font-family:'Lato',sans-serif;font-weight:400">${user.displayName?.split(' ')[0] || ''}</span> <button onclick="signOut()" style="margin-left:8px;font-size:10px;background:none;border:1px solid var(--border);border-radius:6px;padding:2px 8px;cursor:pointer;color:var(--muted);font-family:'Lato',sans-serif">Salir</button>`;
-
-      setupRealtimeListeners();
-
-      setTimeout(() => {
-        document.getElementById('loading-overlay').style.display = 'none';
-        ['lunes', 'miercoles', 'viernes'].forEach(day => {
-          renderTasks(day);
-          checkNotification(day);
-        });
-      }, 1500);
+      const ready = await loadOrCreateUserRole(user);
+      if (ready) finishAppInit(user);
 
     } else {
       currentUser = null;
+      currentRole = null;
       unsubscribeSnapshots.forEach(fn => fn());
       unsubscribeSnapshots = [];
       document.getElementById('loading-overlay').style.display = 'none';
       document.getElementById('auth-overlay').style.display = 'flex';
     }
   });
+}
+
+function finishAppInit(user) {
+  const brand = document.getElementById('nav-brand');
+  if (brand) brand.innerHTML = `🏠 Casa &nbsp;<span style="font-size:11px;color:var(--muted);font-family:'Lato',sans-serif;font-weight:400">${user.displayName?.split(' ')[0] || ''}</span> <span id="role-badge" style="font-size:10px;margin-left:6px;font-weight:700"></span> <button onclick="signOut()" style="margin-left:8px;font-size:10px;background:none;border:1px solid var(--border);border-radius:6px;padding:2px 8px;cursor:pointer;color:var(--muted);font-family:'Lato',sans-serif">Salir</button>`;
+
+  applyRoleToUI();
+  setupRealtimeListeners();
+
+  setTimeout(() => {
+    document.getElementById('loading-overlay').style.display = 'none';
+    ['lunes', 'miercoles', 'viernes'].forEach(day => {
+      renderTasks(day);
+      checkNotification(day);
+    });
+  }, 1500);
 }
 
 // =============================================
