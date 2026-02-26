@@ -8,20 +8,19 @@ const path = require('path');
 
 const firebaseApiKey  = process.env.FIREBASE_API_KEY  || '';
 const gcpApiKey       = process.env.GCP_API_KEY       || '';
-const anthropicApiKey = process.env.ANTHROPIC_API_KEY || '';
 
-if (!firebaseApiKey || !anthropicApiKey) {
+if (!firebaseApiKey) {
   console.warn(
-    '[generate-config] ADVERTENCIA: Alguna variable de entorno está vacía. ' +
-    'Asegurate de configurar FIREBASE_API_KEY, GCP_API_KEY y ANTHROPIC_API_KEY en Vercel.'
+    '[generate-config] ADVERTENCIA: FIREBASE_API_KEY está vacía. ' +
+    'Asegurate de configurarla en Vercel. ' +
+    'Nota: ANTHROPIC_API_KEY ya no va aquí — la usa /api/claude.js en el servidor.'
   );
 }
 
 const content = `// Archivo generado automáticamente — no editar manualmente.
 window.APP_CONFIG = {
   firebaseApiKey:  "${firebaseApiKey}",
-  gcpApiKey:       "${gcpApiKey}",
-  anthropicApiKey: "${anthropicApiKey}"
+  gcpApiKey:       "${gcpApiKey}"
 };
 `;
 
