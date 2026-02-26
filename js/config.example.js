@@ -6,6 +6,6 @@
 
 window.APP_CONFIG = {
   firebaseApiKey:  "TU_FIREBASE_API_KEY",
-  gcpApiKey:       "TU_GCP_API_KEY",
-  anthropicApiKey: "TU_ANTHROPIC_API_KEY"  // formato: sk-ant-...
+  gcpApiKey:       "TU_GCP_API_KEY"
+  // anthropicApiKey ya no va aquí — la maneja /api/claude.js en el servidor (variable de entorno ANTHROPIC_API_KEY en Vercel)
 };
