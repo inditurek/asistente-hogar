@@ -3,7 +3,7 @@
 // =============================================
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD1sHFKsLq4VKlNU6aDFhBRIx35lB2_p2Y",
+  apiKey: window.APP_CONFIG.firebaseApiKey,
   authDomain: "organizacion-del-hogar.firebaseapp.com",
   projectId: "organizacion-del-hogar",
   storageBucket: "organizacion-del-hogar.firebasestorage.app",
