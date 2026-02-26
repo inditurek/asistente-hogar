@@ -2,7 +2,7 @@
 // DATA
 // =============================================
 
-const DEFAULT_TASKS = {
+export const DEFAULT_TASKS = {
   lunes: [
     { id: 'l1', cat: 'cocina', icon: '🍲', text: 'Meal prep principal: viandas para llevar (martes a jueves) y comidas de casa hasta el miércoles' },
     { id: 'l2', cat: 'cocina', icon: '📋', text: 'Revisar el menú e ingredientes necesarios para saber qué y cuánto cocinar' },
@@ -34,13 +34,13 @@ const DEFAULT_TASKS = {
   ]
 };
 
-const CATEGORIES = {
+export const CATEGORIES = {
   cocina: { label: 'Cocina', icon: '🍳' },
   limpieza: { label: 'Limpieza', icon: '🧹' },
   ropa: { label: 'Ropa', icon: '👕' },
 };
 
-function getCurrentSeason() {
+export function getCurrentSeason() {
   const m = new Date().getMonth() + 1;
   if (m >= 12 || m <= 2) return 'verano';
   if (m >= 3 && m <= 5) return 'otono';
@@ -48,7 +48,7 @@ function getCurrentSeason() {
   return 'primavera';
 }
 
-const PRELOADED_RECIPES = [
+export const PRELOADED_RECIPES = [
   { id: 'r1', emoji: '🥗', name: 'Ensalada de quinoa con vegetales', time: 20, tags: ['rapido', 'singluten', 'calor'], ingredients: [{ name: 'Quinoa', amount: '200 g' }, { name: 'Pepino', amount: '1 unidad' }, { name: 'Tomates cherry', amount: '150 g' }, { name: 'Morrón rojo', amount: '1 unidad' }, { name: 'Limón', amount: '1 unidad' }, { name: 'Aceite de oliva', amount: '3 cdas' }, { name: 'Sal y perejil', amount: 'A gusto' }], steps: ['Cocinar quinoa con 2 partes de agua por 1 de quinoa, 15 min. Dejar enfriar.', 'Picar pepino, cherry y morrón en cubos chicos.', 'Mezclar todo con aceite, jugo de limón, sal y perejil.', 'Guardar en heladera hasta servir.'], conservation: 'Hasta 3 días en heladera. No congela.' },
   { id: 'r2', emoji: '🐟', name: 'Medallones de merluza con ensalada', time: 25, tags: ['rapido', 'singluten', 'calor', 'finde'], ingredients: [{ name: 'Merluza en postas', amount: '1 kg' }, { name: 'Ajo', amount: '3 dientes' }, { name: 'Limón', amount: '2 unidades' }, { name: 'Aceite de oliva', amount: '3 cdas' }, { name: 'Lechuga', amount: '1 planta' }, { name: 'Tomate', amount: '2 unidades' }, { name: 'Sal y pimienta', amount: 'A gusto' }], steps: ['Marinar el pescado con limón, ajo, sal y pimienta 15 min.', 'Cocinar en sartén con aceite 4 min por lado.', 'Armar ensalada con lechuga y tomate en rodajas.', 'Servir el pescado sobre la ensalada con un chorro de limón.'], conservation: 'Consumir el día. El pescado cocido dura 1 día en heladera.' },
   { id: 'r3', emoji: '🥚', name: 'Tortilla de verduras', time: 30, tags: ['rapido', 'singluten', 'fresco'], ingredients: [{ name: 'Huevos', amount: '6 unidades' }, { name: 'Zucchini', amount: '1 unidad' }, { name: 'Espinaca', amount: '100 g' }, { name: 'Queso rallado sin TACC', amount: '50 g' }, { name: 'Aceite de oliva', amount: '2 cdas' }, { name: 'Sal, pimienta, nuez moscada', amount: 'A gusto' }], steps: ['Saltear zucchini en rodajas y espinaca hasta ablandar.', 'Batir huevos con sal, pimienta y nuez moscada.', 'Mezclar huevos con verduras y queso.', 'Cocinar en sartén aceitada tapado a fuego bajo 10 min.', 'Dar vuelta con cuidado y cocinar 5 min más.'], conservation: 'Hasta 3 días en heladera. Se puede comer fría. No congela bien.' },
