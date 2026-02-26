@@ -3,7 +3,7 @@
 // =============================================
 
 const firebaseConfig = {
-  apiKey: "CLAVE_ELIMINADA",
+  apiKey: window.APP_CONFIG.firebaseApiKey,
   authDomain: "organizacion-del-hogar.firebaseapp.com",
   projectId: "organizacion-del-hogar",
   storageBucket: "organizacion-del-hogar.firebasestorage.app",
