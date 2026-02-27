@@ -2,23 +2,23 @@
 // ROLES
 // =============================================
 import { db } from '../src/firebase.js'
-import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore'
+import { doc, getDoc, setDoc, deleteDoc, collection, getDocs } from 'firebase/firestore'
 
 export let currentRole = null
 export let founderUid = null
+export let currentUserName = null
 
 export async function loadOrCreateUserRole(user) {
   const userRef = doc(db, 'users', user.uid)
   const userDoc = await getDoc(userRef)
 
   if (userDoc.exists()) {
-    // Usuario ya registrado
     currentRole = userDoc.data().role
+    currentUserName = userDoc.data().name
     founderUid = await getFounderUid()
     applyRoleToUI()
     return true
   } else {
-    // Usuario nuevo → mostrar pantalla de registro de nombre
     showNameRegistration(user, userRef)
     return false
   }
@@ -40,10 +40,10 @@ function showNameRegistration(user, userRef) {
     const name = input.value.trim()
     if (!name) { input.focus(); return }
 
-    // Ver si ya hay un Admin fundador
     founderUid = await getFounderUid()
     const isFirst = !founderUid
     currentRole = isFirst ? 'admin' : 'user'
+    currentUserName = name
 
     await setDoc(userRef, {
       role: currentRole,
@@ -71,33 +71,29 @@ export function applyRoleToUI() {
     el.style.display = isAdminUser ? '' : 'none'
   })
 
-  // Botones editar/eliminar tareas — solo Admin
+  // Agregar / editar / eliminar tareas — solo Admin
   document.querySelectorAll('.task-actions').forEach(el => {
     el.style.display = isAdminUser ? '' : 'none'
   })
-
-  // Agregar tarea — solo Admin
   document.querySelectorAll('.add-task-row').forEach(el => {
     el.style.display = isAdminUser ? '' : 'none'
   })
-
-  // Acciones en recetas — solo Admin
-  document.querySelectorAll('.recipe-card-actions').forEach(el => {
-    el.style.display = isAdminUser ? '' : 'none'
-  })
-
-  // Botón agregar receta — solo Admin
-  const addRecipeBtn = document.querySelector('[onclick="openAddRecipeModal()"]')
-  if (addRecipeBtn) addRecipeBtn.style.display = isAdminUser ? '' : 'none'
-
-  // Botón IA — solo Admin
-  const aiBtn = document.getElementById('ai-rec-btn')
-  if (aiBtn) aiBtn.style.display = isAdminUser ? '' : 'none'
 
   // Resetear día — solo Admin
   document.querySelectorAll('[onclick*="resetDay"]').forEach(el => {
     el.style.display = isAdminUser ? '' : 'none'
   })
+
+  // Agregar / editar / eliminar recetas — solo Admin
+  document.querySelectorAll('.recipe-card-actions').forEach(el => {
+    el.style.display = isAdminUser ? '' : 'none'
+  })
+  const addRecipeBtn = document.querySelector('[onclick="openAddRecipeModal()"]')
+  if (addRecipeBtn) addRecipeBtn.style.display = isAdminUser ? '' : 'none'
+
+  // Sugerir con IA — solo Admin
+  const aiBtn = document.getElementById('ai-rec-btn')
+  if (aiBtn) aiBtn.style.display = isAdminUser ? '' : 'none'
 
   // Badge de rol
   const badge = document.getElementById('role-badge')
@@ -121,6 +117,9 @@ export async function loadUsersForHistory() {
 }
 
 export async function setUserRole(targetUid, newRole) {
-  const userRef = doc(db, 'users', targetUid)
-  await setDoc(userRef, { role: newRole }, { merge: true })
+  await setDoc(doc(db, 'users', targetUid), { role: newRole }, { merge: true })
+}
+
+export async function deleteUser(targetUid) {
+  await deleteDoc(doc(db, 'users', targetUid))
 }
