@@ -32,7 +32,8 @@ import {
 } from '../js/week-plan.js'
 import { clearHistory } from '../js/history.js'
 import { renderUsersPanel } from '../js/history.js'
-import { applyRoleToUI, currentRole, founderUid } from '../js/roles.js'
+import * as Roles from '../js/roles.js'
+window.Roles = Roles
 
 // =============================================
 // GLOBALS para onclick inline del HTML
@@ -114,8 +115,7 @@ onAuthStateChanged(auth, async (user) => {
   } else {
     showAuthOverlay()
   }
-window.currentRole = currentRole
-window.founderUid = founderUid
+window.getCurrentRole = () => currentRole
 window.applyRoleToUI = applyRoleToUI
 })
 
