@@ -61,3 +61,45 @@ export function clearHistory() {
   save()
   renderHistory()
 }
+
+export async function renderUsersPanel() {
+  const { loadUsersForHistory, setUserRole, isFounder } = await import('./roles.js')
+  const { auth } = await import('../src/firebase.js')
+
+  const container = document.getElementById('users-panel')
+  if (!container) return
+
+  const users = await loadUsersForHistory()
+  const currentUid = auth.currentUser?.uid
+  const canManage = isFounder(currentUid)
+
+  container.innerHTML = `
+    <div class="section-title-main" style="margin-top:32px">👥 Perfiles de la casa</div>
+    ${users.map(u => `
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-weight:700;font-size:14px">${u.name}</div>
+          <div style="font-size:12px;color:var(--muted)">${u.email}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:12px;font-weight:700;color:${u.role === 'admin' ? 'var(--gold)' : 'var(--muted)'}">
+            ${u.role === 'admin' ? '👑 Admin' : '👤 Usuario'}
+          </span>
+          ${canManage && u.uid !== currentUid ? `
+            <button onclick="window._toggleRole('${u.uid}','${u.role}')"
+              style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:none;cursor:pointer;font-family:'Lato',sans-serif;color:var(--muted)">
+              ${u.role === 'admin' ? 'Degradar' : 'Promover'}
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    `).join('')}
+  `
+
+  window._toggleRole = async (uid, currentRoleVal) => {
+    const newRole = currentRoleVal === 'admin' ? 'user' : 'admin'
+    if (!confirm(`¿Cambiar este usuario a ${newRole === 'admin' ? 'Admin' : 'Usuario'}?`)) return
+    await setUserRole(uid, newRole)
+    renderUsersPanel()
+  }
+}

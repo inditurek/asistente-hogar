@@ -31,6 +31,8 @@ import {
   removePlanSlot, savePlan,
 } from '../js/week-plan.js'
 import { clearHistory } from '../js/history.js'
+import { applyRoleToUI } from '../js/roles.js'
+import { renderUsersPanel } from '../js/history.js'
 
 // =============================================
 // GLOBALS para onclick inline del HTML
@@ -93,6 +95,8 @@ async function finishAppInit() {
   document.getElementById('loading-msg').textContent       = 'Cargando datos...'
 
   setupRealtimeListeners()
+  applyRoleToUI()
+renderUsersPanel()
 
   document.getElementById('loading-overlay').style.display = 'none'
   showView('lunes')

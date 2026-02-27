@@ -45,6 +45,19 @@
   </button>
 </div>
 
+<!-- NAME REGISTRATION -->
+<div id="name-registration-overlay" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:9997;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px">
+  <div style="font-size:2.5rem">🏠</div>
+  <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text);text-align:center">¿Cómo te llamamos?</div>
+  <div style="font-size:14px;color:var(--muted);text-align:center;max-width:320px">Este nombre va a aparecer en las notas y el historial.</div>
+  <input id="username-input" type="text" placeholder="Tu nombre..." onkeydown="if(event.key==='Enter')window._confirmName()"
+    style="width:100%;max-width:320px;padding:14px 18px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);font-family:'Lato',sans-serif;font-size:15px;color:var(--text);outline:none" />
+  <button onclick="window._confirmName()"
+    style="width:100%;max-width:320px;padding:16px;border-radius:12px;border:none;background:var(--gold);font-family:'Lato',sans-serif;font-size:15px;font-weight:700;color:var(--bg);cursor:pointer">
+    Entrar →
+  </button>
+</div>
+
 <nav>
   <div class="nav-brand" id="nav-brand">🏠 Casa</div>
   <div class="nav-tabs">
@@ -232,6 +245,7 @@
     </div>
     <div id="history-overview-stats"></div>
     <div id="history-entries"></div>
+    <div id="users-panel"></div>
   </div>
 
 </main>
