@@ -97,7 +97,11 @@ async function finishAppInit() {
   document.getElementById('loading-msg').textContent       = 'Cargando datos...'
 
   setupRealtimeListeners()
-  applyRoleToUI()
+  // Mostrar nombre y rol en el nav
+const userName = Roles.currentUserName || user?.displayName?.split(' ')[0] || ''
+const nameEl = document.getElementById('user-name')
+if (nameEl) nameEl.textContent = userName
+Roles.applyRoleToUI()
 renderUsersPanel()
 
   document.getElementById('loading-overlay').style.display = 'none'
