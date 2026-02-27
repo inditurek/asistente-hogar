@@ -76,6 +76,7 @@ export function renderTasks(day) {
       </div>
     `)
   }
+  if (window.Roles) window.Roles.applyRoleToUI()
 }
 
 export function toggleTask(day, id) {

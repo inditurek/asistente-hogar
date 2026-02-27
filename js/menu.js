@@ -88,6 +88,7 @@ export function renderRecipeGrid() {
       </div>
     </div>
   `).join('')
+  if (window.Roles) window.Roles.applyRoleToUI()
 }
 
 export function openRecipe(id) {
@@ -142,6 +143,7 @@ export function openRecipe(id) {
       </button>
     ` : ''}
   `
+  if (window.Roles) window.Roles.applyRoleToUI()
 }
 
 export function closeRecipeDetail() {
