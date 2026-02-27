@@ -31,7 +31,6 @@ import {
   removePlanSlot, savePlan,
 } from '../js/week-plan.js'
 import { clearHistory } from '../js/history.js'
-import { applyRoleToUI } from '../js/roles.js'
 import { renderUsersPanel } from '../js/history.js'
 import { applyRoleToUI, currentRole, founderUid } from '../js/roles.js'
 
