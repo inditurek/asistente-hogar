@@ -7,9 +7,11 @@ import { doc, getDoc, setDoc, deleteDoc, collection, getDocs } from 'firebase/fi
 export let currentRole = null
 export let founderUid = null
 export let currentUserName = null
+export let currentUserUid = null
 
 export async function loadOrCreateUserRole(user) {
   const userRef = doc(db, 'users', user.uid)
+  currentUserUid = user.uid
   const userDoc = await getDoc(userRef)
 
   if (userDoc.exists()) {
