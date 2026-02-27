@@ -22,6 +22,7 @@ export function sharedDoc(docName) {
 
 export function signInWithGoogle() {
   const provider = new GoogleAuthProvider()
+  provider.setCustomParameters({ prompt: 'select_account' })
   signInWithPopup(auth, provider).catch(e => {
     console.error('Error al iniciar sesión:', e)
     alert('No se pudo iniciar sesión. Intentá de nuevo.')
