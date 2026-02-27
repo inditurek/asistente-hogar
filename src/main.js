@@ -33,6 +33,7 @@ import {
 import { clearHistory } from '../js/history.js'
 import { applyRoleToUI } from '../js/roles.js'
 import { renderUsersPanel } from '../js/history.js'
+import { applyRoleToUI, currentRole, founderUid } from '../js/roles.js'
 
 // =============================================
 // GLOBALS para onclick inline del HTML
@@ -114,6 +115,9 @@ onAuthStateChanged(auth, async (user) => {
   } else {
     showAuthOverlay()
   }
+window.currentRole = currentRole
+window.founderUid = founderUid
+window.applyRoleToUI = applyRoleToUI
 })
 
 // Service Worker: registrado automáticamente por vite-plugin-pwa
