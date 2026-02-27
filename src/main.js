@@ -80,6 +80,7 @@ window.removePlanSlot       = removePlanSlot
 window.savePlan             = savePlan
 
 window.clearHistory         = clearHistory
+window.applyRoleToUI = Roles.applyRoleToUI
 
 // =============================================
 // AUTH FLOW
