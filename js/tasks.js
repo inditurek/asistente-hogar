@@ -145,10 +145,30 @@ export function formatTime(ms) {
   return `${h}:${m}:${sec}`
 }
 
+export function renderSessionBanner(sessions) {
+  const banner = document.getElementById('session-banner')
+  if (!banner) return
+  const days = ['lunes', 'miercoles', 'viernes']
+  const active = days.map(d => sessions[d]).find(s => s && s.running)
+  if (active) {
+    const myName = window.Roles?.currentUserName || ''
+    const isMe = active.userName === myName
+    const who = isMe ? 'Estás trabajando' : `${active.userName} está trabajando`
+    const since = active.startTime ? ` desde las ${active.startTime}` : ''
+    banner.innerHTML = `<span>🏠 ${who}${since}</span>`
+    banner.style.display = 'block'
+  } else {
+    banner.style.display = 'none'
+    banner.innerHTML = ''
+  }
+}
+
 export function startSession(day) {
   if (state.sessions[day] && state.sessions[day].running) return
   const now = Date.now()
-  state.sessions[day] = { start: now, running: true, elapsed: 0 }
+  const userName = window.Roles?.currentUserName || 'Alguien'
+  const startTime = new Date(now).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
+  state.sessions[day] = { start: now, running: true, elapsed: 0, userName, startTime }
   save()
   document.getElementById('start-btn-' + day).style.display = 'none'
   document.getElementById('clock-' + day).style.display = 'grid'
