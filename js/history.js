@@ -64,13 +64,11 @@ export function clearHistory() {
 
 export async function renderUsersPanel() {
   const { loadUsersForHistory, setUserRole, deleteUser, isFounder } = await import('./roles.js')
-  const { auth } = await import('./firebase-config.js')
-
+  const currentUid = window.Roles?.currentUserUid || null
   const container = document.getElementById('users-panel')
   if (!container) return
 
   const users = await loadUsersForHistory()
-  const currentUid = auth.currentUser?.uid
   const canManage = isFounder(currentUid)
 
   let editMode = false
