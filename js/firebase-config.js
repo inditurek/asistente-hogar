@@ -14,6 +14,7 @@ export { auth, db }
 export { loadOrCreateUserRole }
 
 export const unsubscribeSnapshots = []
+export let currentUser = null
 
 export function sharedDoc(docName) {
   return doc(db, 'hogar', docName)
