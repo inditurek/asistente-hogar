@@ -59,7 +59,7 @@ function showNameRegistration(user, userRef) {
 
     overlay.style.display = 'none'
     applyRoleToUI()
-    window._finishAppInit()
+    window._finishAppInit(user)
   }
 }
 

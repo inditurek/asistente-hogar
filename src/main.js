@@ -91,23 +91,22 @@ function showAuthOverlay() {
   document.getElementById('auth-overlay').style.display   = 'flex'
 }
 
-async function finishAppInit() {
+async function finishAppInit(user) {
   document.getElementById('auth-overlay').style.display    = 'none'
   document.getElementById('loading-overlay').style.display = 'flex'
   document.getElementById('loading-msg').textContent       = 'Cargando datos...'
 
   setupRealtimeListeners()
-  // Mostrar nombre y rol en el nav
-const userName = Roles.currentUserName || user?.displayName?.split(' ')[0] || ''
-const nameEl = document.getElementById('user-name')
-if (nameEl) nameEl.textContent = userName
-Roles.applyRoleToUI()
-renderUsersPanel()
+
+  const userName = Roles.currentUserName || user?.displayName?.split(' ')[0] || ''
+  const nameEl = document.getElementById('user-name')
+  if (nameEl) nameEl.textContent = userName
+  Roles.applyRoleToUI()
+  renderUsersPanel()
 
   document.getElementById('loading-overlay').style.display = 'none'
   showView('lunes')
 }
-
 // Usado por firebase-config.js → showRoleSelection → window._confirmRole
 window._finishAppInit = finishAppInit
 
@@ -115,7 +114,7 @@ onAuthStateChanged(auth, async (user) => {
   if (user) {
     document.getElementById('loading-msg').textContent = 'Verificando usuario...'
     const ready = await loadOrCreateUserRole(user)
-    if (ready) await finishAppInit()
+    if (ready) await finishAppInit(user)
     // Si ready === false, el overlay de selección de rol se encarga del flujo
   } else {
     showAuthOverlay()
