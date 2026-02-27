@@ -92,6 +92,14 @@ function showAuthOverlay() {
   document.getElementById('auth-overlay').style.display   = 'flex'
 }
 
+function getDefaultDay() {
+  const day = new Date().getDay() // 0=Dom, 1=Lun, 2=Mar, 3=Mié, 4=Jue, 5=Vie, 6=Sáb
+  if (day === 1) return 'lunes'
+  if (day === 3) return 'miercoles'
+  if (day === 5) return 'viernes'
+  return 'lunes'
+}
+
 async function finishAppInit(user) {
   document.getElementById('auth-overlay').style.display    = 'none'
   document.getElementById('loading-overlay').style.display = 'flex'
@@ -106,7 +114,7 @@ async function finishAppInit(user) {
   renderUsersPanel()
 
   document.getElementById('loading-overlay').style.display = 'none'
-  showView('lunes')
+  showView(getDefaultDay())
 }
 // Usado por firebase-config.js → showRoleSelection → window._confirmRole
 window._finishAppInit = finishAppInit

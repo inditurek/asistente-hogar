@@ -47,6 +47,26 @@ nav {
   font-size: 1.15rem;
   color: var(--gold);
   letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-logout {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-family: 'Lato', sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 3px 8px;
+  border-radius: 6px;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.btn-logout:hover {
+  color: var(--danger);
+  border-color: var(--danger);
 }
 
 .nav-tabs {
