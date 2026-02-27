@@ -64,7 +64,7 @@ export function clearHistory() {
 
 export async function renderUsersPanel() {
   const { loadUsersForHistory, setUserRole, deleteUser, isFounder } = await import('./roles.js')
-  const { auth } = await import('../src/firebase.js')
+  const { auth } = await import('./firebase-config.js')
 
   const container = document.getElementById('users-panel')
   if (!container) return
