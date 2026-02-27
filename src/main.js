@@ -81,6 +81,7 @@ window.savePlan             = savePlan
 
 window.clearHistory         = clearHistory
 window.applyRoleToUI = Roles.applyRoleToUI
+window.renderUsersPanel = renderUsersPanel
 
 // =============================================
 // AUTH FLOW
