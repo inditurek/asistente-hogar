@@ -8,7 +8,7 @@ import { state, sharedDoc, saveToFirebase, mergeTasksFromFirestore, clockInterva
 import { PRELOADED_RECIPES } from '../../js/data.js'
 
 // Importados para ser llamados cuando Firestore notifica cambios
-import { renderTasks, tickClock } from '../../js/tasks.js'
+import { renderTasks, tickClock, renderSessionBanner } from '../../js/tasks.js'
 import { checkNotification } from '../../js/navigation.js'
 import { renderHistory } from '../../js/history.js'
 import { renderMenu } from '../../js/menu.js'
@@ -45,6 +45,9 @@ export function setupRealtimeListeners() {
           clockIntervals[day] = setInterval(() => tickClock(day), 1000)
         }
       })
+      renderSessionBanner(remoteSessions)
+    } else {
+      renderSessionBanner({})
     }
   }, e => console.error('sessions error:', e))
   unsubscribeSnapshots.push(unsubSess)
